@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindTraders", "NorthwindTraders\NorthwindTraders.csproj", "{DDC687A8-95CE-49BC-B7AD-E217D8ABBC54}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindTraders.Domain", "NorthwindTraders.Domain\NorthwindTraders.Domain.csproj", "{381EB8C3-EC9E-4725-8DA5-0A5B5B86B7CE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindTraders.Infrastructure", "NorthwindTraders.Infrastructure\NorthwindTraders.Infrastructure.csproj", "{D25DF4D3-8EB1-4ADB-8634-512734DC8B9A}"
@@ -23,10 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DDC687A8-95CE-49BC-B7AD-E217D8ABBC54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DDC687A8-95CE-49BC-B7AD-E217D8ABBC54}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DDC687A8-95CE-49BC-B7AD-E217D8ABBC54}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DDC687A8-95CE-49BC-B7AD-E217D8ABBC54}.Release|Any CPU.Build.0 = Release|Any CPU
 		{381EB8C3-EC9E-4725-8DA5-0A5B5B86B7CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{381EB8C3-EC9E-4725-8DA5-0A5B5B86B7CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{381EB8C3-EC9E-4725-8DA5-0A5B5B86B7CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
