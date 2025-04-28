@@ -1,9 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindTraders", "NorthwindTraders\NorthwindTraders.csproj", "{DDC687A8-95CE-49BC-B7AD-E217D8ABBC54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindTraders.Domain", "NorthwindTraders.Domain\NorthwindTraders.Domain.csproj", "{381EB8C3-EC9E-4725-8DA5-0A5B5B86B7CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindTraders.Infrastructure", "NorthwindTraders.Infrastructure\NorthwindTraders.Infrastructure.csproj", "{D25DF4D3-8EB1-4ADB-8634-512734DC8B9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindTraders.Application", "NorthwindTraders.Application\NorthwindTraders.Application.csproj", "{8143EDBC-409D-4062-ACF8-241CA2ABBA75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindTraders.Blazor", "NorthwindTraders.Blazor\NorthwindTraders.Blazor.csproj", "{635AF85F-8EE5-4008-8116-F8FFE9474204}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindTraders.WebApi", "NorthwindTraders.WebApi\NorthwindTraders.WebApi.csproj", "{B842E96F-377E-4FCE-B07D-A49CCC3F791A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindTraders.UnitTests", "NorthwindTraders.UnitTests\NorthwindTraders.UnitTests.csproj", "{338CC6C4-F34A-491E-9CCE-00EA5BB0A573}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +27,30 @@ Global
 		{DDC687A8-95CE-49BC-B7AD-E217D8ABBC54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDC687A8-95CE-49BC-B7AD-E217D8ABBC54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDC687A8-95CE-49BC-B7AD-E217D8ABBC54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{381EB8C3-EC9E-4725-8DA5-0A5B5B86B7CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{381EB8C3-EC9E-4725-8DA5-0A5B5B86B7CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{381EB8C3-EC9E-4725-8DA5-0A5B5B86B7CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{381EB8C3-EC9E-4725-8DA5-0A5B5B86B7CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D25DF4D3-8EB1-4ADB-8634-512734DC8B9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D25DF4D3-8EB1-4ADB-8634-512734DC8B9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D25DF4D3-8EB1-4ADB-8634-512734DC8B9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D25DF4D3-8EB1-4ADB-8634-512734DC8B9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8143EDBC-409D-4062-ACF8-241CA2ABBA75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8143EDBC-409D-4062-ACF8-241CA2ABBA75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8143EDBC-409D-4062-ACF8-241CA2ABBA75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8143EDBC-409D-4062-ACF8-241CA2ABBA75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{635AF85F-8EE5-4008-8116-F8FFE9474204}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{635AF85F-8EE5-4008-8116-F8FFE9474204}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{635AF85F-8EE5-4008-8116-F8FFE9474204}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{635AF85F-8EE5-4008-8116-F8FFE9474204}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B842E96F-377E-4FCE-B07D-A49CCC3F791A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B842E96F-377E-4FCE-B07D-A49CCC3F791A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B842E96F-377E-4FCE-B07D-A49CCC3F791A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B842E96F-377E-4FCE-B07D-A49CCC3F791A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{338CC6C4-F34A-491E-9CCE-00EA5BB0A573}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{338CC6C4-F34A-491E-9CCE-00EA5BB0A573}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{338CC6C4-F34A-491E-9CCE-00EA5BB0A573}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{338CC6C4-F34A-491E-9CCE-00EA5BB0A573}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
