@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using NorthwindTraders.Domain.Entities;
 
 namespace NorthwindTraders.Infrastructure.Data
@@ -20,7 +15,7 @@ namespace NorthwindTraders.Infrastructure.Data
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Shipper> Shippers { get; set; }
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -30,15 +25,15 @@ namespace NorthwindTraders.Infrastructure.Data
                 entity.HasKey(e => e.OrderId);
 
                 entity.HasOne(e => e.Customer)
-                    .WithMany(e => e.Orders)
+                    .WithMany(c => c.Orders)
                     .HasForeignKey(e => e.CustomerId)
-                    // I use Restrict here to prevent deleting a customer that has orders
                     .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(e => e.Employee)
                     .WithMany(emp => emp.Orders)
-                    .HasForeignKey(e => e.EmployeeId);
-                
+                    .HasForeignKey(e => e.EmployeeId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
                 entity.Property(e => e.ShipName).HasMaxLength(40);
                 entity.Property(e => e.ShipAddress).HasMaxLength(60);
                 entity.Property(e => e.ShipCity).HasMaxLength(15);
@@ -58,7 +53,7 @@ namespace NorthwindTraders.Infrastructure.Data
 
                 entity.HasOne(od => od.Order)
                     .WithMany(o => o.OrderDetail)
-                    .HasForeignKey(od  => od.OrderId);
+                    .HasForeignKey(od => od.OrderId);
 
                 entity.HasOne(od => od.Product)
                     .WithMany(p => p.OrderDetail)
@@ -67,7 +62,8 @@ namespace NorthwindTraders.Infrastructure.Data
                 entity.ToTable("Order Details");
             });
 
-            modelBuilder.Entity<Employee>(entity => {
+            modelBuilder.Entity<Employee>(entity =>
+            {
                 entity.HasKey(e => e.EmployeeId);
             });
 
