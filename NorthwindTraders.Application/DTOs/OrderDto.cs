@@ -42,6 +42,25 @@ namespace NorthwindTraders.Application.DTOs
         [Required]
         [StringLength(15)]
         public string ShipCountry { get; set; }
+
+        public double? Latitude { get; set; }
+        public double? Longitude { get; set; }
+
+        public bool IsAddressValid { get; set; }
+
         public List<OrderDetailDto> OrderDetail { get; set; } = new List<OrderDetailDto>();
+
+        public decimal TotalPrice
+        {
+            get
+            {
+                decimal total = 0;
+                foreach (var detail in OrderDetail)
+                {
+                    total += detail.TotalPrice;
+                }
+                return total;
+            }
+        }
     }
 }

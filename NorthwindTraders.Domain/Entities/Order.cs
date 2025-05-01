@@ -41,6 +41,12 @@ namespace NorthwindTraders.Domain.Entities
         [StringLength(15)]
         public string? ShipCountry { get; set; }
 
+        public double? Latitude { get; set; }
+        public double? Longitude { get; set; }
+
+        // Flag to indicate if the address is valid
+        public bool IsAddressValid { get; set; }
+
         public virtual Customer Customer { get; set; }
         public virtual Employee Employee { get; set; }
         public virtual ICollection<OrderDetail> OrderDetail { get; set; } = new List<OrderDetail>();
