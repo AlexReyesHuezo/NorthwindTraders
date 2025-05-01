@@ -12,6 +12,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\NorthwindTraders.Domain\NorthwindTraders.Domain.csproj" />
+		<ProjectReference Include="..\NorthwindTraders.Application\NorthwindTraders.Application.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
