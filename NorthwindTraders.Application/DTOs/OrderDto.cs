@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace NorthwindTraders.Application.DTOs
 {
@@ -49,17 +47,15 @@ namespace NorthwindTraders.Application.DTOs
         public bool IsAddressValid { get; set; }
 
         public List<OrderDetailDto> OrderDetail { get; set; } = new List<OrderDetailDto>();
-
-        public decimal TotalPrice
+        public decimal GetTotalPrice()
+        {
+            return OrderDetail.Sum(od => od.UnitPrice * od.Quantity * (1 - (decimal)od.Discount)) + Freight;
+        }
+        public string FormattedShipAddress
         {
             get
             {
-                decimal total = 0;
-                foreach (var detail in OrderDetail)
-                {
-                    total += detail.TotalPrice;
-                }
-                return total;
+                return $"{ShipName}, {ShipAddress}, {ShipCity}, {ShipRegion}, {ShipPostalCode}, {ShipCountry}";
             }
         }
     }

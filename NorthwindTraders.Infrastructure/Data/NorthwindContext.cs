@@ -22,29 +22,29 @@ namespace NorthwindTraders.Infrastructure.Data
 
             modelBuilder.Entity<Order>(entity =>
             {
-                entity.HasKey(e => e.OrderId);
+                entity.HasKey(o => o.OrderId);
 
-                entity.HasOne(e => e.Customer)
+                entity.HasOne(o => o.Customer)
                     .WithMany(c => c.Orders)
-                    .HasForeignKey(e => e.CustomerId)
+                    .HasForeignKey(o => o.CustomerId)
                     .OnDelete(DeleteBehavior.Restrict);
 
-                entity.HasOne(e => e.Employee)
+                entity.HasOne(o => o.Employee)
                     .WithMany(emp => emp.Orders)
-                    .HasForeignKey(e => e.EmployeeId)
+                    .HasForeignKey(o => o.EmployeeId)
                     .OnDelete(DeleteBehavior.Restrict);
 
-                entity.Property(e => e.ShipName).HasMaxLength(40);
-                entity.Property(e => e.ShipAddress).HasMaxLength(60);
-                entity.Property(e => e.ShipCity).HasMaxLength(15);
-                entity.Property(e => e.ShipRegion).HasMaxLength(15);
-                entity.Property(e => e.ShipPostalCode).HasMaxLength(10);
-                entity.Property(e => e.ShipCountry).HasMaxLength(15);
-                entity.Property(e => e.Freight).HasColumnType("money");
-                entity.Property(e => e.OrderDate).HasColumnType("datetime");
-                entity.Property(e => e.RequiredDate).HasColumnType("datetime");
-                entity.Property(e => e.ShippedDate).HasColumnType("datetime");
-                entity.Property(e => e.ShipVia).HasColumnType("int");
+                entity.Property(o => o.ShipName).HasMaxLength(40);
+                entity.Property(o => o.ShipAddress).HasMaxLength(60);
+                entity.Property(o => o.ShipCity).HasMaxLength(15);
+                entity.Property(o => o.ShipRegion).HasMaxLength(15);
+                entity.Property(o => o.ShipPostalCode).HasMaxLength(10);
+                entity.Property(o => o.ShipCountry).HasMaxLength(15);
+                entity.Property(o => o.Freight).HasColumnType("money");
+                entity.Property(o => o.OrderDate).HasColumnType("datetime");
+                entity.Property(o => o.RequiredDate).HasColumnType("datetime");
+                entity.Property(o => o.ShippedDate).HasColumnType("datetime");
+                entity.Property(o => o.ShipVia).HasColumnType("int");
             });
 
             modelBuilder.Entity<OrderDetail>(entity =>

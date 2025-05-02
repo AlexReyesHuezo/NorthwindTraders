@@ -15,6 +15,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AutoMapper" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" />
 	</ItemGroup>
 

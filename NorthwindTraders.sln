@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindTraders.Applicatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindTraders.Blazor", "NorthwindTraders.Blazor\NorthwindTraders.Blazor.csproj", "{635AF85F-8EE5-4008-8116-F8FFE9474204}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindTraders.WebApi", "NorthwindTraders.WebApi\NorthwindTraders.WebApi.csproj", "{B842E96F-377E-4FCE-B07D-A49CCC3F791A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindTraders.UnitTests", "NorthwindTraders.UnitTests\NorthwindTraders.UnitTests.csproj", "{338CC6C4-F34A-491E-9CCE-00EA5BB0A573}"
 EndProject
 Global
@@ -37,10 +35,6 @@ Global
 		{635AF85F-8EE5-4008-8116-F8FFE9474204}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{635AF85F-8EE5-4008-8116-F8FFE9474204}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{635AF85F-8EE5-4008-8116-F8FFE9474204}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B842E96F-377E-4FCE-B07D-A49CCC3F791A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B842E96F-377E-4FCE-B07D-A49CCC3F791A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B842E96F-377E-4FCE-B07D-A49CCC3F791A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B842E96F-377E-4FCE-B07D-A49CCC3F791A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{338CC6C4-F34A-491E-9CCE-00EA5BB0A573}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{338CC6C4-F34A-491E-9CCE-00EA5BB0A573}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{338CC6C4-F34A-491E-9CCE-00EA5BB0A573}.Release|Any CPU.ActiveCfg = Release|Any CPU

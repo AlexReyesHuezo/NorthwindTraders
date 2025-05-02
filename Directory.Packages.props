@@ -4,6 +4,8 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Global package versions -->
+    <PackageVersion Include="AutoMapper" Version="14.0.0" />
+    <PackageVersion Include="IronPdf" Version="2025.4.4" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="9.0.4" />
     <PackageVersion Include="Microsoft.Extensions.Configuration" Version="8.0.0" />

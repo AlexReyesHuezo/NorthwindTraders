@@ -16,6 +16,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="IronPdf" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" />
