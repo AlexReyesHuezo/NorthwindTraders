@@ -1,0 +1,187 @@
+﻿@page "/orders/{id:int}"
+@using NorthwindTraders.Application.Interfaces
+@inject IOrderService OrderService
+@inject IPdfGenerationService PdfService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+<PageTitle>Order Details - Northwind Traders</PageTitle>
+
+@if (isLoading)
+{
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+}
+else if (order == null)
+{
+    <div class="alert alert-danger">
+        Order not found.
+    </div>
+}
+else
+{
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Order #@order.Id</h1>
+        <div>
+            <button class="btn btn-outline-secondary me-2" @onclick="GeneratePdf">
+                <span class="oi oi-data-transfer-download"></span> Export PDF
+            </button>
+            <a href="orders/@order.Id/edit" class="btn btn-primary">
+                <span class="oi oi-pencil"></span> Edit Order
+            </a>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            Order Information
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Customer</h5>
+                    <p>@order.CustomerName</p>
+                    
+                    <h5>Order Date</h5>
+                    <p>@order.OrderDate.ToLongDateString()</p>
+                    
+                    <h5>Status</h5>
+                    <p>
+                        <span class="badge bg-@GetStatusBadgeColor(order.Status)">
+                            @order.Status
+                        </span>
+                    </p>
+
+                    <h5>Employee</h5>
+                    <p>@order.EmployeeName</p>
+                </div>
+                
+                <div class="col-md-6">
+                    <h5>Shipping Address</h5>
+                    <address>
+                        @order.ShippingAddress.Street<br />
+                        @order.ShippingAddress.City, @order.ShippingAddress.State @order.ShippingAddress.PostalCode<br />
+                        @order.ShippingAddress.Country
+                    </address>
+                    
+                    @if (order.ShippingAddress.Coordinates != null)
+                    {
+                        <div class="mt-3">
+                            <MapComponent Coordinates="order.ShippingAddress.Coordinates" />
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            Order Items
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Unit Price</th>
+                            <th>Quantity</th>
+                            <th class="text-end">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in order.OrderDetails)
+                        {
+                            <tr>
+                                <td>@item.ProductName</td>
+                                <td>@item.UnitPrice.ToString("C")</td>
+                                <td>@item.Quantity</td>
+                                <td class="text-end">@((item.UnitPrice * item.Quantity).ToString("C"))</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" class="text-end"><strong>Subtotal</strong></td>
+                            <td class="text-end">@order.Subtotal.ToString("C")</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="text-end"><strong>Tax</strong></td>
+                            <td class="text-end">@order.Tax.ToString("C")</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="text-end"><strong>Total</strong></td>
+                            <td class="text-end">@order.Total.ToString("C")</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private OrderDto order;
+    private bool isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadOrder();
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await LoadOrder();
+    }
+
+    private async Task LoadOrder()
+    {
+        try
+        {
+            isLoading = true;
+            order = await OrderService.GetOrderByIdAsync(Id);
+        }
+        catch (Exception)
+        {
+            // Handle error
+            order = null;
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task GeneratePdf()
+    {
+        try
+        {
+            var pdfBytes = await PdfService.GenerateOrderPdfAsync(order);
+            await JSRuntime.InvokeVoidAsync("downloadFile", $"Order_{order.Id}.pdf", "application/pdf", pdfBytes);
+        }
+        catch (Exception)
+        {
+            // Handle error
+            await JSRuntime.InvokeVoidAsync("alert", "Error generating PDF");
+        }
+    }
+
+    private string GetStatusBadgeColor(OrderStatus status)
+    {
+        return status switch
+        {
+            OrderStatus.Pending => "warning",
+            OrderStatus.Shipped => "success",
+            OrderStatus.Delivered => "info",
+            OrderStatus.Cancelled => "danger",
+            _ => "secondary"
+        };
+    }
+}

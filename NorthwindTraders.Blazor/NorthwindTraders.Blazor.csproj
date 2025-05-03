@@ -14,7 +14,13 @@
    <CentralPackageManagementEnabled>true</CentralPackageManagementEnabled>
  </PropertyGroup>
 
- <ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\NorthwindTraders.Infrastructure\NorthwindTraders.Infrastructure.csproj" />
+		<ProjectReference Include="..\NorthwindTraders.Application\NorthwindTraders.Application.csproj" />
+		<ProjectReference Include="..\NorthwindTraders.Domain\NorthwindTraders.Domain.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" />
    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" PrivateAssets="all" />
  </ItemGroup>

@@ -1,0 +1,117 @@
+﻿@page "/reports/all-orders"
+@using NorthwindTraders.Application.Interfaces
+@using NorthwindTraders.Blazor.Components
+@inject IOrderService OrderService
+@inject IJSRuntime JSRuntime
+
+<PageTitle>All Orders Report - Northwind Traders</PageTitle>
+
+<h1>All Orders Report</h1>
+
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                Report Parameters
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label">Start Date</label>
+                            <input type="date" class="form-control" @bind="startDate" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label">End Date</label>
+                            <input type="date" class="form-control" @bind="endDate" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+                            <select class="form-select" @bind="selectedStatus">
+                                <option value="">All Statuses</option>
+                                @foreach (var status in Enum.GetValues(typeof(OrderStatus)))
+                                {
+                                    <option value="@status">@status</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-primary" @onclick="GenerateReport">
+                        <span class="oi oi-document"></span> Generate Report
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (isLoading)
+{
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+}
+else if () (recentOrders == null || !recentOrders.Any())
+{
+	<div class="alert alert-info">
+		No orders found for the selected criteria.
+	</div>
+	}
+	else
+	{
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header">
+					Report Results
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table table-striped table-hover">
+							<thead>
+								<tr>
+									<th>Order ID</th>
+									<th>Customer</th>
+									<th>Order Date</th>
+									<th>Status</th>
+									<th>Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var order in recentOrders)
+							{
+								<tr>
+									<td>@order.Id</td>
+									<td>@order.CustomerName</td>
+									<td>@order.OrderDate.ToShortDateString()</td>
+									<td><span class="badge bg-@GetStatusBadgeColor(order.Status)">@order.Status</span></td>
+									<td>@order.Total.ToString("C")</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+					<!-- Example of grouping and summarizing data -->
+					@* Group by Customer and summarize total orders *@
+					@* This is just an example, adjust as needed *@
+					var groupedOrders = recentOrders.GroupBy(o => o.CustomerName);
+					foreach (var group in groupedOrders)
+					{
+					var total = group.Sum(o => o.Total);
+					@* Display grouped data *@
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Additional report sections can be added here -->
+</div>
+}

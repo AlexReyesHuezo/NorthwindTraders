@@ -1,0 +1,219 @@
+﻿@page "/"
+
+<PageTitle>Home - Northwind Traders</PageTitle>
+
+<div class="container">
+    <h1>Northwind Traders Order Management</h1>
+    
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    Quick Actions
+                </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Order Date</th>
+                            <th>Status</th>
+                            <th>Items</th>
+                            <th class="text-end">Total</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in reportData)
+                        {
+                            <tr>
+                                <td>@order.Id</td>
+                                <td>@order.CustomerName</td>
+                                <td>@order.OrderDate.ToShortDateString()</td>
+                                <td>
+                                    <span class="badge bg-@GetStatusBadgeColor(order.Status)">
+                                        @order.Status
+                                    </span>
+                                </td>
+                                <td>@order.OrderDetails.Count</td>
+                                <td class="text-end">@order.Total.ToString("C")</td>
+                                <td>
+                                    <a href="orders/@order.Id" class="btn btn-sm btn-outline-primary">
+                                        <span class="oi oi-eye"></span> View
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5" class="text-end"><strong>Grand Total</strong></td>
+                            <td class="text-end"><strong>@reportData.Sum(o => o.Total).ToString("C")</strong></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <h3>Order Summary</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Orders by Status</div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Status</th>
+                                        <th>Count</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var group in reportData.GroupBy(o => o.Status))
+                                    {
+                                        <tr>
+                                            <td>
+                                                <span class="badge bg-@GetStatusBadgeColor(group.Key)">
+                                                    @group.Key
+                                                </span>
+                                            </td>
+                                            <td>@group.Count()</td>
+                                            <td>@group.Sum(o => o.Total).ToString("C")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Top Customers</div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Customer</th>
+                                        <th>Orders</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var group in reportData
+                                        .GroupBy(o => o.CustomerName)
+                                        .OrderByDescending(g => g.Sum(o => o.Total))
+                                        .Take(5))
+                                    {
+                                        <tr>
+                                            <td>@group.Key</td>
+                                            <td>@group.Count()</td>
+                                            <td>@group.Sum(o => o.Total).ToString("C")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else if (!isLoading && reportGenerated)
+{
+    <div class="alert alert-info">
+        No orders found for the selected criteria.
+    </div>
+}
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a href="orders/new" class="btn btn-primary">Create New Order</a>
+                        <a href="orders" class="btn btn-outline-primary">View All Orders</a>
+                        <a href="reports/all-orders" class="btn btn-outline-secondary">Generate Reports</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    Recent Orders
+                </div>
+                <div class="card-body">
+                    @if (isLoading)
+                    {
+                        <p>Loading recent orders...</p>
+                    }
+                    else if (recentOrders == null || !recentOrders.Any())
+                    {
+                        <p>No recent orders found.</p>
+                    }
+                    else
+                    {
+                        <div class="list-group">
+                            @foreach (var order in recentOrders)
+                            {
+                                <a href="orders/@order.Id" class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">Order #@order.Id</h5>
+                                        <small>@order.OrderDate.ToShortDateString()</small>
+                                    </div>
+                                    <p class="mb-1">Customer: @order.CustomerName</p>
+                                    <small>Status: <span class="badge bg-@GetStatusBadgeColor(order.Status)">@order.Status</span></small>
+                                </a>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private List<OrderDto> recentOrders;
+    private bool isLoading = true;
+
+    [Inject]
+    private IOrderService OrderService { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            recentOrders = await OrderService.GetRecentOrdersAsync(5);
+        }
+        catch (Exception)
+        {
+            // Handle error
+            recentOrders = new List<OrderDto>();
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private string GetStatusBadgeColor(OrderStatus status)
+    {
+        return status switch
+        {
+            OrderStatus.Pending => "warning",
+            OrderStatus.Shipped => "success",
+            OrderStatus.Delivered => "info",
+            OrderStatus.Cancelled => "danger",
+            _ => "secondary"
+        };
+    }
+}
